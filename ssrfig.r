@@ -22,17 +22,25 @@ if(addtext == 1){
 	z<- round(z, digit=1)
 	z<- paste(z,"%",sep="")
 	}
-outfile <- paste(c(figtag,".jpg"), collapse="")
+
+outfile <- paste0(figtag, ".pdf")
 totalcolors=20
-n<-length(y)
-if(n<20){totalcolors<- n}
-mycolors=rainbow(totalcolors)
-jpeg(filename = outfile, width = 480, height = 480,res=300,pointsize = 4,quality = 90) # output image in jpeg format, pointsize for text
-par(mar=c(7.1,4.1,4.1,2.1)) #cex=1
-mybar=barplot(y, ylab=ylabcontent,xlab=xlabcontent,main=titlenam,xpd=FALSE,col=mycolors,border=NA)
-axis(side=1,at=mybar,tick=TRUE,labels=x, las=xlabdir,cex.axis = 1)
-axis(side=3,at=mybar,pos=0, tick=FALSE,labels=z, las=2,cex.axis = 1)
+pdf(file = outfile, width = 8, height = 8, pointsize = 12)
+
+totalcolors <- 20
+n <- length(y)
+if(n < 20) { totalcolors <- n }
+mycolors <- rainbow(totalcolors)
+
+par(mar=c(7.1, 4.1, 4.1, 2.1))
+mybar <- barplot(y, ylab=ylabcontent, xlab=xlabcontent, main=titlenam,
+                 xpd=FALSE, col=mycolors, border=NA)
+axis(side=1, at=mybar, tick=TRUE, labels=x, las=xlabdir, cex.axis=1)
+if(addtext == "1") {
+    axis(side=3, at=mybar, pos=0, tick=FALSE, labels=z, las=2, cex.axis=1)
+}
+
 box()
-graphics.off()
+dev.off()
 
 
